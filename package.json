@@ -1,0 +1,74 @@
+{
+    "name": "es-react-template",
+    "version": "0.1.0",
+    "private": true,
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "@essenza/react": "file:../../../../es/essenzajs/packages/react",
+        "@testing-library/jest-dom": "latest",
+        "@testing-library/react": "latest",
+        "@testing-library/user-event": "latest",
+        "antd": "latest",
+        "dayjs": "^1.11.10",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-icons": "latest",
+        "react-router-dom": "^6.28.2",
+        "react-to-print": "latest",
+        "recast": "latest",
+        "web-vitals": "latest",
+        "yup": "latest"
+    },
+    "scripts": {
+        "start": "webpack serve --mode=development",
+        "build": "webpack --mode=production",
+        "test": "jest",
+        "esedit": "node es.edit.js"
+    },
+    "keywords": [
+        "essenza",
+        "react",
+        "js"
+    ],
+    "author": "erikcar",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "latest",
+        "@babel/preset-env": "latest",
+        "@babel/preset-react": "latest",
+        "@tailwindcss/postcss": "^4.0.0",
+        "autoprefixer": "^10.4.20",
+        "babel-loader": "latest",
+        "css-loader": "^7.1.2",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "latest",
+        "jsdoc": "latest",
+        "postcss": "^8.5.1",
+        "postcss-loader": "^8.1.1",
+        "postcss-preset-env": "^10.1.3",
+        "style-loader": "^4.0.0",
+        "tailwindcss": "^4.0.0",
+        "webpack": "latest",
+        "webpack-cli": "latest",
+        "webpack-dev-server": "latest"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
