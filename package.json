@@ -5,7 +5,7 @@
     "description": "",
     "main": "index.js",
     "dependencies": {
-        "@essenza/react": "file:../../../../es/essenzajs/packages/react",
+        "@essenza/react": "latest",
         "@testing-library/jest-dom": "latest",
         "@testing-library/react": "latest",
         "@testing-library/user-event": "latest",
@@ -19,6 +19,9 @@
         "recast": "latest",
         "web-vitals": "latest",
         "yup": "latest"
+    },
+    "@overrides": {
+        "@essenza/react": "file:../../../es/essenzajs/packages/react"
     },
     "scripts": {
         "start": "webpack serve --mode=development",
