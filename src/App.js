@@ -47,6 +47,8 @@ function App() {
             {breakpoint.md.active
               ? <Route path="/" element={<MainLayout />}>
                 <Route path="home" element={<HomeVista />} />
+                <Route path="home1" element={<HomeVista />} />
+                <Route path="home2" element={<HomeVista />} />
                 <Route path="settings" element={<UserAdminVista />} />
                 <Route path="user-detail" element={<UserVista />} />
                 <Route path="profile" element={<ProfileVista />} />

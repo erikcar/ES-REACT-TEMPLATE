@@ -1,13 +1,20 @@
-import { useVista, Vista } from "@essenza/react";
-
+import React from "react";
 import { Home } from "../widget/home";
+import { ViewModel } from "@essenza/react"; //useData, 
 
-export function HomeVista() {
-    const vm = useVista();
-
-    return (
-        <Vista>
-            <Home />
-        </Vista>
-    )
+function Vista({ vm }) {
+    //let [data] = useData(vm.model);
+    return  <Home />
 }
+
+export const HomeVista = ViewModel.create({
+    "@vista": Vista,
+
+    $$constructor() {
+        //this.model = this.inject(EditorModel);
+    },
+
+    "@observe": {
+
+    }
+});
