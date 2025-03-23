@@ -11,6 +11,7 @@ module.exports = {
     //libraryTarget: 'umd', //'var' , 'umd'
     //clean: true
     //globalObject: 'this',
+    publicPath: '/'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules']
@@ -63,5 +64,6 @@ module.exports = {
   devServer: {
     port: 3000,
     open: true,
+    historyApiFallback: true,
   },
 };
