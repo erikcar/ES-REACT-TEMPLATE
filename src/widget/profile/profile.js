@@ -1,24 +1,25 @@
-import { widget, UserVM, Widget, useForm, Form, FormItem } from "@essenza/react";
+import React from 'react'
+import { useFormUI, Form, FormItem, ViewModel } from "@essenza/react";
 import { Input, Select } from 'antd';
 const { Option } = Select;
 
-export const Profile = widget( function Profile({ user, rules, roles, vm }) {
-    //useWidget(UserVM);
-    const form = useForm(user, { rules });
+function Widget({ source, vm, roles, title }) {
+    const form = useFormUI(Profile, source, { rules: vm.rules });
     return (
-        <Widget>
-            <Form form={form}  layout='vertical' className="flex flex-col gap-2" >
+        <>
+            <h1 className="font-bold text-xl">{title || 'Responsabile Azienda'}</h1>
+            <Form form={form} layout='vertical' className="flex flex-col gap-2" >
                 <FormItem label="Nome" name="name">
-                    <Input placeholder="Mario"></Input>
+                    <Input placeholder="Es. Mario"></Input>
                 </FormItem>
                 <FormItem label="Cognome" name="surname">
-                    <Input placeholder="Rossi"></Input>
+                    <Input placeholder="Es. Rossi"></Input>
                 </FormItem>
                 <FormItem label="Email" name="email">
-                    <Input placeholder="email@email.it"></Input>
+                    <Input placeholder="Es. email@email.it"></Input>
                 </FormItem>
                 <FormItem label="Telefono" name="phone">
-                    <Input placeholder="contatto telefonico"></Input>
+                    <Input placeholder="Es. 333 1234567"></Input>
                 </FormItem>
                 <FormItem label="Azienda" name="businessname">
                     <Input placeholder="Nome Azienda"></Input>
@@ -28,12 +29,23 @@ export const Profile = widget( function Profile({ user, rules, roles, vm }) {
                     <>
                         <FormItem label="Tipo" name="irole">
                             <Select placeholder="Tipo Utente" className="w100">
-                                {roles.map((v, i) => <Option value={i}>{v}</Option>)}
+                                {roles.map((v, i) => <Option key={i} value={i}>{v}</Option>)}
                             </Select>
                         </FormItem>
                     </>
                 }
             </Form>
-        </Widget>
+        </>
     )
-}, UserVM)
+}
+
+export const Profile = ViewModel.create({
+    "@view": Widget,
+
+    $$constructor() {
+    },
+
+    "@observe": {
+
+    }
+});
