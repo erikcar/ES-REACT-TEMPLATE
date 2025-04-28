@@ -1,4 +1,4 @@
-import { useApp, useVM, ViewModel, core } from "@essenza/react";
+import { useApp, useVM, ViewModel, core, Repeater } from "@essenza/react";
 import { Outlet } from "react-router-dom";
 import { Dropdown } from "antd";
 import React from 'react';

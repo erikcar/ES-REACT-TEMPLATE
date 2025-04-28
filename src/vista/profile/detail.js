@@ -1,44 +1,29 @@
-import { useVista, useModel, Vista, ViewModel, core, UserVM, UserModel } from "@essenza/react";
-import { Button } from "antd";
-import { useEffect } from "react";
+import { useData, ViewModel, UserVM } from "@essenza/react";
+import React from "react";
 import { Profile } from "../../widget/profile/profile";
+import { notification } from "antd";
 
-export function UserVista() {
-    const vm = useVista(UserVVM);
-    const [user, data] = useModel(UserModel);
-
-    useEffect(() => {
-        const item = vm.context.navdata;
-        user.item(item.id);
-    }, [user, vm]);
-
+export function Vista({ vm }) {
+    const [data] = useData(vm.model);
     return (
-        <Vista>
-            <div className="flex place-content-center h-full items-center pt-4">
-                <div class="w-full max-w-sm p-6 bg-white shadow-md drop-shadow rounded-xl ">
-                    <Profile user={data} rules={vm.rules} roles={user.roles}/>
-                    <button className="btn-dark bg-sec w-full mt-4" onClick={() => vm.emit("SAVE")}>Salva</button>
-                </div>
+        <div className="flex place-content-center h-full items-center pt-4">
+            <div className="w-full max-w-sm p-6 bg-white shadow-md drop-shadow rounded-xl ">
+                <Profile user={data} rules={vm.rules} roles={vm.model.roles} />
+                <button className="btn-dark bg-sec w-full mt-4" onClick={() => vm.save()}>Salva</button>
+                <button className="btn-dark bg-sec w-full mt-4" onClick={() => vm.context.navigate(-1)}>Torna a elenco utenti</button>
             </div>
-        </Vista>
+        </div>
     )
 }
 
-export function UserVVM() {
-    ViewModel.call(this);
-    this.use(UserVM).as("user");
-}
+export const UserVista = ViewModel.extend(UserVM, {
+    "@vista": Vista,
 
-core.prototypeOf(ViewModel, UserVVM, {
-    rules: null,
-    intent: {
-        SAVE: async function () {
-            const form = this.user.form;
-            const validation = await form.validate(true);
-            if (validation.isValid) {
-                console.log("USER FORM IS VALID", validation.data);
-                validation.data.save();
-            }
-        },
+    $$constructor() {
+        this.model.item(this.context.navdata.id);
+    },
+
+    save(){
+        this.emit("PROFILE_UPDATES").then(()=>notification.success({ message: "Profilo aggiornato con successo" }));
     }
-}); 
+});

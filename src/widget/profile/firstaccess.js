@@ -1,19 +1,16 @@
 import React from 'react';
-import { useWidget, UserVM, Widget, useForm, Form, FormItem } from "@essenza/react";
+import { UserVM, useForm, Form, FormItem, ViewModel} from "@essenza/react";
 
-import { Button, Input } from 'antd';
+import { Input } from 'antd';
 
-export function FirstAccess({ user, rules, token, id }) {
-    const vm = useWidget(UserVM);
+function Widget({ vm, user, rules, token, id }) {
     const form = useForm(user, { rules });
-
     console.log("FIRST ACCESS Query Params", token, id);
-
     return (
-        <Widget>
+        <>
             {
                 token ?
-                    <div class="w-full max-w-md mx-auto p-6 bg-white shadow-md rounded ">
+                    <div className="w-full max-w-md mx-auto p-6 bg-white shadow-md rounded ">
                         <Form form={form} layout='vertical' className="flex flex-col gap-3">
                             <FormItem label="Email" name="email">
                                 <Input disabled={true} placeholder="Email"></Input>
@@ -24,7 +21,7 @@ export function FirstAccess({ user, rules, token, id }) {
                             <FormItem label="Conferma Password" name="cpassword">
                                 <Input.Password placeholder="conferma password"></Input.Password>
                             </FormItem>
-                            <button className="btn-dark bg-sec w-full" onClick={() => vm.emit("FIRST_ACCESS", { token, id })}>
+                            <button className="btn-dark bg-sec w-full" onClick={() => vm.emit("FIRST_ACCESS", { token, id, form })}>
                                 Conferma
                             </button>
                         </Form>
@@ -32,6 +29,8 @@ export function FirstAccess({ user, rules, token, id }) {
                     :
                     <h6>Richiesta scaduta o non valida.</h6>
             }
-        </Widget>
+        </>
     )
 }
+
+export const FirstAccess = ViewModel.use(UserVM, Widget);

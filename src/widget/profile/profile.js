@@ -1,13 +1,14 @@
 import React from 'react'
-import { useFormUI, Form, FormItem, ViewModel } from "@essenza/react";
+import { useFormUI, Form, FormItem, useFragment } from "@essenza/react";
 import { Input, Select } from 'antd';
 const { Option } = Select;
 
-function Widget({ source, vm, roles, title }) {
-    const form = useFormUI(Profile, source, { rules: vm.rules });
+export function Profile({ user, roles, title }) {
+    const vm = useFragment();
+    const form = useFormUI("PROFILE_FORM", user, { rules: vm.rules });
     return (
         <>
-            <h1 className="font-bold text-xl">{title || 'Responsabile Azienda'}</h1>
+            <h1 className="font-bold text-xl">{title || 'Profilo Utente'}</h1>
             <Form form={form} layout='vertical' className="flex flex-col gap-2" >
                 <FormItem label="Nome" name="name">
                     <Input placeholder="Es. Mario"></Input>
@@ -27,7 +28,7 @@ function Widget({ source, vm, roles, title }) {
                 {
                     roles &&
                     <>
-                        <FormItem label="Tipo" name="irole">
+                        <FormItem label="Tipo" name="itype">
                             <Select placeholder="Tipo Utente" className="w100">
                                 {roles.map((v, i) => <Option key={i} value={i}>{v}</Option>)}
                             </Select>
@@ -38,14 +39,3 @@ function Widget({ source, vm, roles, title }) {
         </>
     )
 }
-
-export const Profile = ViewModel.create({
-    "@view": Widget,
-
-    $$constructor() {
-    },
-
-    "@observe": {
-
-    }
-});

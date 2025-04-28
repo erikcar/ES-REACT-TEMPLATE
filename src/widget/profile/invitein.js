@@ -1,68 +1,52 @@
-import { useWidget, UserVM, Widget, useForm, Form, FormItem } from "@essenza/react";
-import { Input, Radio, Select } from 'antd';
-import { useState } from "react";
+import { useFormUI, Form, FormItem } from "@essenza/react";
+import { Input, Select } from 'antd';
+import React from "react";
 const { Option } = Select;
 
-export function Invitein({ user, rules, enableInvite, roles }) {
-    const vm = useWidget(UserVM);
-    const form = useForm(user, { rules });
-    const [enabled, setEnabled] = useState(true);
-
-    const modeChanged = value => {
-        vm.invited = value;
-        setEnabled(!value);
-    };
-
+export function Invitein({ user, rules, roles, withpass }) {
+    const form = useFormUI("INVITE_FORM", user, { rules });
     return (
-        <Widget>
-            <Form form={form} layout="vertical" className="flex flex-col gap-2">
-                <FormItem label="Nome" name="name">
-                    <Input placeholder="Mario"></Input>
-                </FormItem>
-                <FormItem label="Cognome" name="surname">
-                    <Input placeholder="Rossi"></Input>
-                </FormItem>
-                <FormItem label="Email" name="email">
-                    <Input placeholder="email@email.it"></Input>
-                </FormItem>
-                <FormItem label="Azienda" name="businessname">
-                    <Input placeholder="Nome Azienda"></Input>
-                </FormItem>
-                {
-                    roles &&
-                    <>
-                        <FormItem label="Tipo" name="irole">
-                            <Select placeholder="Tipo Utente" className="w100">
-                                {roles.map((v, i) => <Option value={i}>{v}</Option>)}
-                            </Select>
-                        </FormItem>
-                    </>
-                }
-                {
-                    enableInvite &&
-                    <>
-                        <h2><b>Metodo inserimento</b></h2>
-                        <Radio.Group className="my-3" onChange={e => modeChanged(e.target.value)} defaultValue={false}>
-                            <Radio value={false}>Password</Radio>
-                            <Radio value={true}>Invito</Radio>
-                        </Radio.Group>
-                    </>
-                }
-                {
-                    enabled &&
-                    <>
-                        <FormItem label="Password" name="password">
-                            <Input.Password />
-                        </FormItem>
-                        <FormItem label="Conferma Password" name="cpassword">
-                            <Input.Password />
-                        </FormItem>
-                    </>
-                }
-            </Form>
-        </Widget>
+        <Form form={form} layout="vertical" className="flex flex-col gap-2">
+            <FormItem label="Nome" name="name">
+                <Input placeholder="Mario"></Input>
+            </FormItem>
+            <FormItem label="Cognome" name="surname">
+                <Input placeholder="Rossi"></Input>
+            </FormItem>
+            <FormItem label="Email" name="email">
+                <Input placeholder="email@email.it"></Input>
+            </FormItem>
+            <FormItem label="Telefono" name="phone">
+                <Input placeholder="Es. 333 1234567"></Input>
+            </FormItem>
+            {
+                roles &&
+                <>
+                    <FormItem label="Tipo" name="itype">
+                        <Select placeholder="Tipo Utente" className="w100">
+                            {roles.map((v, i) => <Option key={i} value={i}>{v}</Option>)}
+                        </Select>
+                    </FormItem>
+                </>
+            }
+            {
+                withpass &&
+                <>
+                    <FormItem label="Password" name="password">
+                        <Input.Password />
+                    </FormItem>
+                    <FormItem label="Conferma Password" name="cpassword">
+                        <Input.Password />
+                    </FormItem>
+                </>
+            }
+        </Form>
     )
 }
+
+
+
+
 
 
 
