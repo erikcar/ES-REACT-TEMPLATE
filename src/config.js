@@ -1,5 +1,5 @@
 import { Link, bool, small, string, decimal, double, float, int, long, date, money, char } from "@essenza/react";
-const int2 = 1, varchar = 2, int4 = 6, int8 = 7, text = 2, numeric = 3, timestamptz = 8, timetz = 8, time = 8;
+const int2 = 1, varchar = 2, int4 = 6, int8 = 7, text = 2, numeric = 3, timestamptz = 8, timetz = 8, time = 8, bpchar = 2, bit = bool;
 export function ConfigureApp(app){
     app.setBaseUrl("https://localhost:7294/");
 

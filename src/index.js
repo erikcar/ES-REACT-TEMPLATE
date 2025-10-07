@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter  } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import dayjs from 'dayjs';
 import 'dayjs/locale/it';
 import locale from 'antd/locale/it_IT';
 import { ConfigProvider } from 'antd';
+import '@ant-design/v5-patch-for-react-19';
 
 dayjs.locale('it');
 const theme = {
@@ -27,19 +28,26 @@ const theme = {
     Menu: {
       itemHoverColor: '#FFFFFF'
     },
+    Table: {
+      headerBg: '#FFFFFF',
+      cellPaddingBlock: '16px',
+      cellPaddingInline: '16px',
+    },
+    DatePicker: {
+      borderRadius: '4px',
+      // fontSize: '12px',
+      colorTextPlaceholder: '#94A3B8',
+      cellActiveWithRangeBg: '#CBD5E1',
+    },
   },
 }
 
-
-/*function App() {
-  return <h1>Rick and Morty</h1>;
-}*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <ConfigProvider locale={locale} theme={theme}>
-    <BrowserRouter  basename="/">
+    <BrowserRouter basename="/">
       <App />
     </BrowserRouter>
   </ConfigProvider>

@@ -22,7 +22,16 @@ const init = app => {
   app.observe("LOADED").make(() => console.log("APP LOADED OBSERVED"));
   app.observe("READY").make(() => console.log("APP READY OBSERVED")).once();
   app.observe("LOGGED").make(() => app.navigate("home"));
+
   app.observe("AUTH").make(() => app.navigate("login"));
+
+  /*app.observe("LOGGED").make(() => {
+    console.log("APP LOGGED OBSERVED");
+    app.useMessenger(app.session.profile.id).start("wss://app.valenteit.com/ws");
+    app.navigate("home")
+  });*/
+
+  //app.observe("SESSION_RESTORED").make(({data}) => app.useMessenger(data.profile.id).start("wss://app.valenteit.com/ws"));
 
   //app.setSource("doctors", [{ id: 1, label: "Dott. Fabrizio Galeotti" }, { id: 2, label: "Dott. Giammarco Triarico" }]);
 
@@ -42,27 +51,27 @@ function App() {
   return (
     <div className="App">
 
-        <AppRoot dev >
-          <Routes>
-            {breakpoint.md.active
-              ? <Route path="/" element={<MainLayout />}>
-                <Route path="home" element={<HomeVista />} />
-                <Route path="home1" element={<HomeVista />} />
-                <Route path="home2" element={<HomeVista />} />
-                <Route path="settings" element={<UserAdminVista />} />
-                <Route path="user-detail" element={<UserVista />} />
-                <Route path="profile" element={<ProfileVista />} />
-                <Route path="invite" element={<InviteVista />} />
-              </Route>
-              :
-              <Route path="/" element={<MobileLayout />}>
-                <Route path="home" element={<Mobile />} />
-              </Route>
-            }
-            <Route index element={<WelcomeVista />} errorElement={<HomeVista />} />
-            <Route path="login" element={<LoginVista />} />
-          </Routes>
-        </AppRoot>
+      <AppRoot dev >
+        <Routes>
+          {breakpoint.md.active
+            ? <Route path="/" element={<MainLayout />}>
+              <Route path="home" element={<HomeVista />} />
+              <Route path="home1" element={<HomeVista />} />
+              <Route path="home2" element={<HomeVista />} />
+              <Route path="settings" element={<UserAdminVista />} />
+              <Route path="user-detail" element={<UserVista />} />
+              <Route path="profile" element={<ProfileVista />} />
+              <Route path="invite" element={<InviteVista />} />
+            </Route>
+            :
+            <Route path="/" element={<MobileLayout />}>
+              <Route path="home" element={<Mobile />} />
+            </Route>
+          }
+          <Route index element={<WelcomeVista />} errorElement={<HomeVista />} />
+          <Route path="login" element={<LoginVista />} />
+        </Routes>
+      </AppRoot>
     </div>
   );
 }

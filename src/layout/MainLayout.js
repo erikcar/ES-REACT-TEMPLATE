@@ -16,11 +16,11 @@ export function MainLayout({ token }) {
         <img src={Logo} alt="Logo" className="max-h-6 flex-none" />
         <TbBrandGoogleHome className="flex-none text-white text-2xl cursor-pointer ml-4" onClick={() => app.navigate("home")} />
 
-        <Repeater css-selected="p-1" onSelect={e => vm.menuNav(e.key)} source={vm.items} />
+        <Repeater ui={vm.menu} css-selected="p-1" onSelect={e => vm.menuNav(e.key)} source={vm.items} />
 
-        { app.role.authorize("ADMIN") && <IoMdSettings className="flex-none text-white text-2xl cursor-pointer mr-2" onClick={() => app.navigate("settings")} /> }
+        {app.role.authorize("ADMIN") && <IoMdSettings className="flex-none text-white text-2xl cursor-pointer mr-2" onClick={() => app.navigate("settings")} />}
         {/* <FaUser onClick={() => app.navigate("profile")} className="flex-none text-white text-2xl cursor-pointer" /> */}
-        <Dropdown menu={{items: vm.uitems, onClick: e => vm.menuNav(e.key)}} trigger={['click']}>
+        <Dropdown menu={{ items: vm.uitems, onClick: e => vm.userNav(e.key) }} trigger={['click']}>
           <FaUser className="flex-none text-black text-2xl cursor-pointer" />
         </Dropdown>
       </div>
@@ -36,6 +36,19 @@ export function MainLayout({ token }) {
 export function LayoutVM() {
   ViewModel.call(this);
   this.current = "agenda";
+  this.menu = {};
+
+  this.observeGlobal("NAVIGATE");
+
+  /*const role = this.context.role;
+  if (role.is("PROCEDURE")) {
+    this.items = [{
+      label: 'Elenco Richieste',
+      key: 'procedures',
+      icon: <IconaElencoRichieste />,
+    },]
+  }*/
+
   this.items = [
     {
       label: 'AREA A',
@@ -73,19 +86,40 @@ export function LayoutVM() {
 
 core.prototypeOf(ViewModel, LayoutVM, {
   menuNav(key) {
+    this.current = key;
+    this.context.navigate(key);
+  },
+
+  userNav(key) {
     if (key === "LOGOUT") {
       this.context.session.logout();
     }
     else {
-      this.current = key;
+      if (this.current) {
+        this.menu.value.clear();
+        //this.mobile.value.clear();
+        this.current = false;
+        this.update();
+      }
       this.context.navigate(key);
     }
   },
 
   intent: { //swipe or override
     MENU_NAV: function ({ context, data }) {
-      this.current = data;
-      context.navigate(data);
+      if (data === "LOGOUT") {
+        this.context.session.logout();
+      }
+      else {
+        this.current = data;
+        context.navigate(data);
+      }
     },
+    NAVIGATE({ data }) {
+      console.log("NAVIGATE", data);
+
+      this.menu.value.selectKey(data.path);
+      this.mobile.value.selectKey(data.path);
+    }
   }
 });

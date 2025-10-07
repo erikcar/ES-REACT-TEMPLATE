@@ -20,9 +20,9 @@ export const Recover = ({ user, rules }) => {
                 }));
 
             }}>
-                Invia Richiesta
+                Inviami il link
             </button>
-            <Button className='float-right text-blue-900 mt-2' type="text" onClick={() => vm.gologin()}>Ritorna a Login</Button>
+            <button className='text-xs text-sky-600 hover:text-sky-900 underline text-left bg-transparent cursor-pointer size-fit mt-4' type="text" onClick={() => vm.gologin()}>Ritorna al login</button>
         </Form>
     )
 };

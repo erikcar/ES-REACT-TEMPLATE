@@ -10,7 +10,7 @@ function Vista({ vm }) {
         <div className="flex flex-col pt-3 max-w-md mx-auto gap-3">
             <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg ">
                 <Profile es-id="profile" user={data} rules={vm.rules} title="Utente" />
-                <button className="btn-dark bg-green-800 mt-3 w-full" onClick={() => vm.emit("SAVE")}>Salva</button>
+                <button className="btn-dark mt-3 w-full" onClick={() => vm.emit("SAVE")}>Salva</button>
             </div>
             <div className="w-full max-w-md p-6 bg-white drop-shadow shadow-md  rounded-xl ">
                 <Password user={data} rules={vm.rules} />
@@ -32,6 +32,13 @@ export const ProfileVista = ViewModel.extend(UserVM, {
                 console.log("PASSWORD_CHANGED");
                 notification.success({ message: "Password aggiornata con successo" });
             });
-        }
+        },
+
+        PROFILE_UPDATES: function (token) {
+            this.$base.intent.PROFILE_UPDATES.call(this, token).then(() => {
+                console.log("PROFILE_UPDATES");
+                notification.success({ message: "Profilo aggiornato con successo" });
+            });
+        },
     }
 });

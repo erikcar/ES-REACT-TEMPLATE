@@ -9,16 +9,19 @@ export function Vista({ vm }) {
     return (
         <div className="flex flex-col place-content-center h-screen items-center">
             <Logo className="mb-6 max-w-xs" />
-            <div className="w-full max-w-sm h-fit p-6 bg-white shadow-md rounded ">
-                <h1 className="my-4 text-right">
-                    {vm.recover ? "Recupera password!" : ""}
-                </h1>
-                {
-                    vm.recover
-                        ? <Recover user={vm.model.newInstance()} rules={vm.rules} es-id="recover" />
-                        : <Login user={vm.model.newInstance()} rules={vm.rules} />
-                }
-            </div>
+            <div className="w-full h-fit">
+                    <h1 className="text-2xl lg:text-3xl font-bold ">
+                        {vm.recover ? "Hai dimenticato la password?" : "Entra nell’area riservata"}
+                    </h1>
+                    <p className="text-sm lg:text-base mt-2 mb-6">
+                        {vm.recover ? "Invieremo alla mail con cui sei registrato un link per impostare una nuova password" : ""}
+                    </p>
+                    {
+                        vm.recover
+                            ? <Recover user={vm.model.newInstance()} rules={vm.rules} es-id="recover" />
+                            : <Login user={vm.model.newInstance()} rules={vm.rules} />
+                    }
+                </div>
         </div>
     )
 }

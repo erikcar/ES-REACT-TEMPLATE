@@ -20,10 +20,10 @@ export function Login({ user, rules }) {
             <FormItem label="Inserisci Password" name="password">
                 <Input.Password placeholder="password"></Input.Password>
             </FormItem>
-            <button className="btn-dark bg-sec w-full mt-2" onClick={() => vm.emit("LOGIN")}>
-                Login
+            <button className='text-xs text-sky-600 hover:text-sky-900 underline text-left bg-transparent cursor-pointer size-fit' type="text" onClick={() => vm.gorecover()}>Password dimenticata?</button>
+            <button className="btn-dark bg-sec hover:bg-sky-900 mt-4 size-fit text-left py-[8px] lg:py-[16px] px-[16px] lg:px-[32px] hover:px-[20px] lg:hover:px-[40px] rounded-sm text-sm lg:text-base font-semibold cursor-pointer transition-all delay-150 duration-300 ease-in-out" onClick={() => vm.emit("LOGIN")}>
+                Accedi
             </button>
-            <Button className='float-right text-blue-900 mt-2' type="text" onClick={() => vm.gorecover()}>Password dimenticata?</Button>
         </Form>
     )
 }
